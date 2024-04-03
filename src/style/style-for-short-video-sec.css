@@ -1,0 +1,69 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:root {
+  /* COLORS */
+  --main-bg-color: #0f0f0f;
+  --second-bg-color: #222222;
+  --font-color: #e4e4e4;
+  --second-font-color: #908f8f;
+  --border-color: #5b5b5b;
+  --comment-sec-bg-color: #898888;
+  /* HEIGHTS */
+  --top-header-h: 56px;
+  /* WIDTHS */
+  --side-bar-w: 0px;
+}
+
+.short-video-section {
+  background-color: var(--main-bg-color);
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+  display: none;
+  justify-content: center;
+  align-items: start;
+  flex-direction: column;
+  padding: 15px 0;
+}
+.short-video-section .short-video-card {
+  height: 80svh;
+  aspect-ratio: 9/16;
+  border-radius: 10px;
+  background-color: var(--second-bg-color);
+  position: relative;
+  margin-bottom: 15px;
+  scroll-snap-align: start none;
+}
+.short-video-section .short-video-card .short-video-player {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+}
+.short-video-section .short-video-card .short-video-like-dislike-share {
+  position: absolute;
+  height: 50%;
+  width: 20%;
+  left: calc(100% + 10px);
+  bottom: 10%;
+  display: flex;
+  justify-content: space-around;
+  align-items: start;
+  flex-direction: column;
+}
+.short-video-like-dislike-share li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 1.5rem;
+}
+.short-video-like-dislike-share i {
+  font-size: 3rem;
+  background-color: var(--second-bg-color);
+  padding: 15px;
+  border-radius: 50%;
+}
