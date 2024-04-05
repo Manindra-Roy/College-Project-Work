@@ -43,7 +43,7 @@ let channelNames = "Channel Name";
 
 /////////////////////////////////////////////////////////////
 
-// category labal data fetch
+// category data fetch
 for (i = 0; i < topContents.length; i++) {
   document.querySelector(".content-categories").innerHTML += `
   <a href="#" class="top-contents">
@@ -52,7 +52,7 @@ for (i = 0; i < topContents.length; i++) {
 }
 // card content data fetch for hime page
 let j = 0;
-while (j < 2) {
+while (j < 1) {
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".contents").innerHTML += `
   <div class="l-cards">
@@ -100,57 +100,6 @@ while (j < 2) {
   </div>
   </div>`;
   }
-  // card content data fetch for video player  page
-  // for (i = 0; i < videos.length; i++) {
-  //   document.querySelector(
-  //     ".video-player-page .suggested-videos"
-  //   ).innerHTML += `
-  //   <div class="l-cards">
-  //   <div class="video-area">
-  //     <a href="#" >
-  //     <video
-  //     class="vid"
-  //     onclick="getSrcOfVideo(),gotoVideoPlayer()"
-  //     poster=${posters[i]}
-  //     src=${videos[i]}
-  //     onmouseover="setTimeout(() => {
-  //       this.play();
-  //    }, 250);"
-  //    onmouseout="setTimeout(() => {
-  //      this.pause();
-  //      this.currentTime=0;
-  //      this.load();
-  //    }, 250);"
-  //         muted
-  //         loop
-  //         preload="none"
-  //       ></video>
-  //     </a>
-  //   </div>
-  //   <div class="video-meta">
-  //     <a href="#" class="profile">
-  //       <div
-  //         class="profile-pic"
-  //         style="
-  //           background: url(${posters[i]});background-size: cover;
-  //         "
-  //       ></div>
-  //     </a>
-  //     <div class="text-info">
-  //       <a href="#" class="title">
-  //       ${videoTitles}
-  //       </a>
-  //       <div class="views-and-dates">
-  //         <a href="#" class="channel-name"
-  //           >${channelNames}</a
-  //         >
-  //         &nbsp;&nbsp;&nbsp;100K Views&nbsp;&nbsp;30 Days Ago
-  //       </div>
-  //     </div>
-  //   </div>
-  //   </div>`;
-  // }
-
   j = j + 1;
 }
 // switch to video player from home page
@@ -160,6 +109,7 @@ let videoPlayerPage = document.querySelector(".video-player-page");
 let lCartVideo = document.querySelectorAll(".video-area>a>video");
 let shortVideoSection = document.querySelector(".short-video-section");
 let shortVideo = document.querySelector(".short-video-card video");
+let shortVideoS = document.querySelectorAll(".short-video-card video");
 const gotoVideoPlayer = () => {
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
@@ -234,32 +184,31 @@ const gotoVideoPlayer = () => {
     }
   });
 };
-// function for pause short video when playing another new video
-const svStop = () => {
-  document.querySelectorAll(".short-video-card video").forEach((svst) => {
-    if (svst.played) {
-      svst.pause();
-    }
-  });
-};
+
 const gotoShortVideoPlayer = () => {
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:grid");
   video.pause();
+  document.querySelectorAll(".short-video-card").forEach((svCards) => {
+    svCards.remove();
+  });
+  video.setAttribute("src", "");
   // card content data fetch for short video page
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".short-video-section").innerHTML += `
-    <div class="short-video-card" onclick="svStop()">
+    <div class="short-video-card">
     <video
     class="short-video-player"
     src=${videos[i]}
-    controls
+    autoplay="false"
+    preload="none"
+    loop
     ></video>
-    
-    <ul class="short-video-like-dislike-share">
-    <li class="short-video-like">
+
+      <ul class="short-video-like-dislike-share">
+        <li class="short-video-like">
           <i class="ri-thumb-up-line"></i>50K
           </li>
           <li class="short-video-dislike">
@@ -267,11 +216,58 @@ const gotoShortVideoPlayer = () => {
           </li>
           <li class="short-video-share">
           <i class="ri-share-fill"></i>Share
-          </li>
-          </ul>
-          </div>`;
+         </li>
+      </ul>
+    </div>`;
   }
+  // //
+  for (const val of document.querySelectorAll(".short-video-card video")) {
+    let options = {
+      root: shortVideoSection,
+      rootMargin: "10px",
+      threshold: 1.0,
+    };
+    let observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach((entry) => {
+        let onScreenShortVideo = entry.target;
+        console.log(entry);
+
+        //
+        if (entry.isIntersecting) {
+          console.log(onScreenShortVideo);
+          console.log("played");
+          onScreenShortVideo.play();
+          onScreenShortVideo.muted = !onScreenShortVideo.muted;
+          console.log(onScreenShortVideo.muted);
+        } else {
+          console.log(onScreenShortVideo);
+          console.log("paused");
+          onScreenShortVideo.pause();
+          onScreenShortVideo.currentTime = 0;
+          onScreenShortVideo.muted = !onScreenShortVideo.muted;
+          console.log(onScreenShortVideo.muted);
+        }
+      });
+    }, options);
+    observer.observe(val);
+    // short video play/pause button
+    val.addEventListener("click", () => {
+      val.paused ? val.play() : val.pause();
+    });
+  }
+  setTimeout(() => {
+    document
+      .querySelector(".short-video-card")
+      .setAttribute("style", "display:none");
+  }, 1);
 };
+// function for pause short video when playing another new video
+const svStop = () => {
+  document.querySelectorAll(".short-video-card video").forEach((svst) => {
+    svst.played ? svst.pause() : svst.play();
+  });
+};
+document.querySelector;
 // switch to home page from video player
 let switchToHomeButtons = document.querySelector(".switch-to-home");
 const gotoHomePage = () => {
@@ -283,7 +279,7 @@ const gotoHomePage = () => {
     svCards.remove();
   });
   video.pause();
-  // shortVideo.pause();
+  video.setAttribute("src", "");
 };
 
 // video transfer engine //////////////

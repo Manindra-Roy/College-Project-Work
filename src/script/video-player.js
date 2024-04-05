@@ -188,7 +188,7 @@ function toggleTheaterMode() {
 const TheaterModeOn = () => {
   document
     .querySelector(".video-player-page")
-    .setAttribute("style", " grid-template-columns:1fr;");
+    .setAttribute("style", "display:grid; grid-template-columns:1fr;");
   document
     .querySelector(".suggested-videos")
     .setAttribute("style", "display:none");
@@ -200,7 +200,7 @@ const TheaterModeOn = () => {
 const TheaterModeOof = () => {
   document
     .querySelector(".video-player-page")
-    .setAttribute("style", " grid-template-columns:2fr 1fr;");
+    .setAttribute("style", "display:grid; grid-template-columns:2fr 1fr;");
   document
     .querySelector(".suggested-videos")
     .setAttribute("style", "display:block");
