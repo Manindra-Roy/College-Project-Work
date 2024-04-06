@@ -2,40 +2,12 @@
     .contents{
         grid-template-columns: repeat(3,1fr);
     }
-    /* .l-cards .title{
-        max-width: 100%;
-        height: auto;
-        font-family: "Roboto", sans-serif;
-        font-size: 1.5rem;
-        padding: 0px 10px;
-        margin: 10px 0px;
-        overflow: hidden;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
-    .l-cards .views-and-dates{
-        padding-left: 10px;
-        padding-right: 20px;
-        height: 30%;
-        font-size: 1.2rem;
-        color: var(--second-font-color);
-        display: flex;
-        justify-content: space-between;
-    }
-    .l-cards .channel-name{
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        max-width: 6ch;
-    }
-    .l-cards .views-and-dates>p{
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
-        max-width: 12ch;
-    } */
     .right-playing-video-info .video-download-btn{
         display: none;
     }
+    .following-page .following-channel-contents {
+
+        grid-template-columns: repeat(3,1fr);
+
+      }
 }

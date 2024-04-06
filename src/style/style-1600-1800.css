@@ -2,8 +2,4 @@
     .contents{
         grid-template-columns: repeat(4,1fr);
     }
-    /* .right-playing-video-info .video-download-btn{
-        display: none;
-    } */
-
 }
