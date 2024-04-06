@@ -1,0 +1,79 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:root {
+  /* COLORS */
+  --main-bg-color: #0f0f0f;
+  --second-bg-color: #222222;
+  --font-color: #e4e4e4;
+  --second-font-color: #908f8f;
+  --border-color: #5b5b5b;
+  --comment-sec-bg-color: #898888;
+  /* HEIGHTS */
+  --top-header-h: 56px;
+  /* WIDTHS */
+  --side-bar-w: 0px;
+}
+/* following page style */
+.following-page {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  padding-left: 15px;
+}
+/* following channels style */
+.following-page .following-channels{
+    width: 100%;
+    height: 100%;
+    background-color:var(--second-bg-color);
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: start;
+    padding: 25px 10px;
+    row-gap: 15px;
+    overflow-y: scroll;
+    border-radius: 7.5px;
+}
+.following-channels .following-channel-profile-card{
+    width: 100%;
+    height: 60px;
+    background-color: var(--main-bg-color);
+    border-radius: 10px;
+    padding: 0 2.5px;
+    padding-left: 10px;
+}
+.following-channels .following-channel-profile-card a{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    color: var(--font-color);
+    font-size: 1.3rem;
+    font-weight: 500;
+
+}
+/* hover */
+.following-channels .following-channel-profile-card:active{
+    background-color: var(--comment-sec-bg-color);
+}
+.following-channel-profile-card .following-channel-profile-pic{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+/* followig channel contents style  */
+.following-page .following-channel-contents {
+  width: 100%;
+  height: 100;
+  background-color:var(--main-bg-color);
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  padding: 15px 10px;
+  column-gap: 10px;
+  overflow-y: scroll;
+}

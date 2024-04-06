@@ -22,6 +22,7 @@
     <link rel="stylesheet" href="./src/style/style.css" />
     <link rel="stylesheet" href="./src/style/style-for-video-player.css" />
     <link rel="stylesheet" href="./src/style/style-for-short-video-sec.css" />
+    <link rel="stylesheet" href="./src/style/Style-for-following-page.css" />
     <link rel="stylesheet" href="./src/style/style-1600-1800.css" />
     <link rel="stylesheet" href="./src/style/style-1280-1600.css" />
     <link rel="stylesheet" href="./src/style/style-custom-scrollbar.css" />
@@ -41,7 +42,8 @@
             ><i class="ri-menu-line"></i
           ></span>
           <span class="nav-logo switch-to-home" onclick="gotoHomePage()"
-            ><h1 style="font-size: inherit">I-Tube</h1></span>
+            ><h1 style="font-size: inherit">I-Tube</h1></span
+          >
         </div>
         <!-- central-nav bar -->
         <div class="central-nav">
@@ -81,8 +83,8 @@
             >
           </li>
           <li>
-            <a href="#" class="follow"
-              ><i class="ri-user-follow-fill"></i>&nbsp;&nbsp;&nbsp;Follow</a
+            <a href="#" class="following" onclick="gotoFollowingPage()"
+              ><i class="ri-user-follow-fill"></i>&nbsp;&nbsp;&nbsp;Following</a
             >
           </li>
         </ul>
@@ -408,6 +410,28 @@
             </ul>
           </div> -->
           <!-- short video card -->
+        </div>
+        <!-- following page -->
+        <div class="following-page">
+          <!-- following channels -->
+          <div class="following-channels">
+            <!-- following-channel-profile-card -->
+            <!-- <div class="following-channel-profile-card">
+              <a href="#">
+                <div
+                  class="following-channel-profile-pic"
+                  style="
+                    background: url(./public/images/a1.jpg);
+                    background-size: cover;
+                  "
+                ></div>
+                &nbsp;&nbsp;Channel Name</a
+              >
+            </div> -->
+            <!-- following-channel-profile-card -->
+          </div>
+          <!-- following channel contents -->
+          <div class="following-channel-contents"></div>
         </div>
       </div>
     </main>

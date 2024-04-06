@@ -79,6 +79,7 @@ font-weight: 500;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   color: var(--font-color);
+  color: #e4e4e4;
   overflow: hidden;
 }
 /* short video fetures */
