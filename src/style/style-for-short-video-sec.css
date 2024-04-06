@@ -16,7 +16,7 @@
   /* WIDTHS */
   --side-bar-w: 0px;
 }
-
+/* short video section */
 .short-video-section {
   background-color: var(--main-bg-color);
   width: 100%;
@@ -29,6 +29,7 @@
   flex-direction: column;
   padding: 15px 0;
 }
+/* short video card */
 .short-video-section .short-video-card {
   height: 80svh;
   aspect-ratio: 9/16;
@@ -38,11 +39,49 @@
   margin-bottom: 15px;
   scroll-snap-align: start none;
 }
+/* short video player(video) */
 .short-video-section .short-video-card .short-video-player {
   width: 100%;
   height: 100%;
   border-radius: 10px;
 }
+.short-video-info{
+  position: absolute;
+  width: 100%;
+  height:auto;
+  background-color: transparent;
+  right: 0;
+  bottom: 15px;
+  padding: 10px;
+
+}
+.short-video-info a{
+display: flex;
+justify-content: start;
+align-items: center;
+width: 100%;
+font-size: 1.4rem;
+color: var(--second-font-color);
+font-weight: 500;
+}
+.short-video-info .short-video-profile{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.short-video-info .short-video-title{
+  width: 100%;
+  font-size: 1.5rem;
+  color: var(--font-color);
+  padding-top: 10px;
+  font-family: "Roboto", sans-serif;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  color: var(--font-color);
+  overflow: hidden;
+}
+/* short video fetures */
 .short-video-section .short-video-card .short-video-like-dislike-share {
   position: absolute;
   height: 50%;
