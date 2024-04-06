@@ -1,5 +1,11 @@
 // sample database ///////////////////////////////////////////
 const videos = [
+  "./public/videos/animeShort1.mp4",
+  "./public/videos/animeShort1.mp4",
+  "./public/videos/animeShort2.mp4",
+  "./public/videos/animeShort3.mp4",
+  "./public/videos/animeShort4.mp4",
+  "./public/videos/animeShort5.mp4",
   "./public/videos/lufy2.mp4",
   "./public/videos/slufy1.mp4",
   "./public/videos/snaruto2.mp4",
@@ -14,6 +20,12 @@ const videos = [
   "./public/videos/wv6.webm",
 ];
 const posters = [
+  "null",
+  "null",
+  "null",
+  "null",
+  "null",
+  "null",
   "null",
   "null",
   "null",
@@ -119,6 +131,7 @@ const gotoVideoPlayer = () => {
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
     lvCard.remove();
   });
+
   for (i = 0; i < videos.length; i++) {
     document.querySelector(
       ".video-player-page .suggested-videos"
@@ -194,31 +207,48 @@ const gotoShortVideoPlayer = () => {
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
+  document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
+    lvCard.remove();
+  });
   video.setAttribute("src", "");
   // card content data fetch for short video page
-  for (i = 0; i < videos.length; i++) {
+  for (i = 0; i < videos.length-8; i++) {
     document.querySelector(".short-video-section").innerHTML += `
     <div class="short-video-card">
     <video
-    class="short-video-player"
-    src=${videos[i]}
-    autoplay="false"
-    preload="none"
-    loop
+      class="short-video-player"
+      src=${videos[i]}
+      autoplay="false"
+      preload="none"
+      loop
     ></video>
-
-      <ul class="short-video-like-dislike-share">
-        <li class="short-video-like">
-          <i class="ri-thumb-up-line"></i>50K
-          </li>
-          <li class="short-video-dislike">
-          <i class="ri-thumb-down-line"></i>50K
-          </li>
-          <li class="short-video-share">
-          <i class="ri-share-fill"></i>Share
-         </li>
-      </ul>
-    </div>`;
+    <div class="short-video-info">
+      <a href="#">
+        <div
+          class="short-video-profile"
+          style="
+            background: url(./public/images/a1.jpg);
+            background-size: cover;
+          "
+        ></div>
+        &nbsp;&nbsp;Channel Name</a
+      >
+      <div class="short-video-title">
+        This is the Title of this video. Lorem ipsum dolor sit amet.
+      </div>
+    </div>
+    <ul class="short-video-like-dislike-share">
+      <li class="short-video-like">
+        <i class="ri-thumb-up-line"></i>50K
+      </li>
+      <li class="short-video-dislike">
+        <i class="ri-thumb-down-line"></i>50K
+      </li>
+      <li class="short-video-share">
+        <i class="ri-share-fill"></i>Share
+      </li>
+    </ul>
+  </div>`;
   }
   // //
   for (const val of document.querySelectorAll(".short-video-card video")) {
@@ -230,8 +260,6 @@ const gotoShortVideoPlayer = () => {
     let observer = new IntersectionObserver((entries, observer) => {
       entries.forEach((entry) => {
         let onScreenShortVideo = entry.target;
-        console.log(entry);
-
         //
         if (entry.isIntersecting) {
           console.log(onScreenShortVideo);
@@ -261,13 +289,6 @@ const gotoShortVideoPlayer = () => {
       .setAttribute("style", "display:none");
   }, 1);
 };
-// function for pause short video when playing another new video
-const svStop = () => {
-  document.querySelectorAll(".short-video-card video").forEach((svst) => {
-    svst.played ? svst.pause() : svst.play();
-  });
-};
-document.querySelector;
 // switch to home page from video player
 let switchToHomeButtons = document.querySelector(".switch-to-home");
 const gotoHomePage = () => {
@@ -277,6 +298,9 @@ const gotoHomePage = () => {
   shortVideoSection.setAttribute("style", "display:none");
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
+  });
+  document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
+    lvCard.remove();
   });
   video.pause();
   video.setAttribute("src", "");
@@ -359,3 +383,17 @@ const switchToDark = () => {
   darkOrLightIconI.setAttribute("class", "ri-sun-fill");
   darkOrLightIcon.setAttribute("onclick", "switchToLight()");
 };
+
+
+
+
+const changeUrl=(nextURL)=>{
+const nextTitle = 'My new page title';
+const nextState = { additionalInformation: 'Updated the URL with JS' };
+// This will create a new entry in the browser's history, without reloading
+window.history.pushState(nextState, nextTitle, nextURL);
+// This will replace the current entry in the browser's history, without reloading
+// window.history.replaceState(nextState, nextTitle, nextURL);
+}
+let nextURL="http://127.0.0.1:5500/index.html"
+// changeUrl(nextURL)

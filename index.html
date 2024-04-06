@@ -37,12 +37,11 @@
       <nav class="nav-bar">
         <!-- left nav bar -->
         <div class="left-nav">
-          <a href="#" class="menu-icon" onclick="openSideBar()"
+          <span class="menu-icon" onclick="openSideBar()"
             ><i class="ri-menu-line"></i
-          ></a>
-          <a href="#" class="nav-logo switch-to-home" onclick="gotoHomePage()"
-            ><h1 style="font-size: inherit">I-Tube</h1></a
-          >
+          ></span>
+          <span class="nav-logo switch-to-home" onclick="gotoHomePage()"
+            ><h1 style="font-size: inherit">I-Tube</h1></span>
         </div>
         <!-- central-nav bar -->
         <div class="central-nav">
@@ -58,9 +57,9 @@
         </div>
         <!-- right nav bar -->
         <div class="right-nav">
-          <a href="#" class="dark-or-light" onclick="switchToLight()"
+          <span class="dark-or-light" onclick="switchToLight()"
             ><i class="ri-sun-fill"></i
-          ></a>
+          ></span>
           <a href="#" class="nav-sign-in">Sign In</a>
         </div>
       </nav>
@@ -374,15 +373,28 @@
           <!-- short video card -->
           <!-- <div class="short-video-card">
             <video
-              id="a1"
               class="short-video-player"
-              src="./public/videos/snaruto1.mp4"
+              src="./public/videos/lufy2.mp4"
               autoplay="false"
-              muted="true"
               preload="none"
               loop
+              muted
             ></video>
-
+            <div class="short-video-info">
+              <a href="#">
+                <div
+                  class="short-video-profile"
+                  style="
+                    background: url(./public/images/a1.jpg);
+                    background-size: cover;
+                  "
+                ></div>
+                &nbsp;&nbsp;Channel Name</a
+              >
+              <div class="short-video-title">
+                This is the Title of this video. Lorem ipsum dolor sit amet.
+              </div>
+            </div>
             <ul class="short-video-like-dislike-share">
               <li class="short-video-like">
                 <i class="ri-thumb-up-line"></i>50K
