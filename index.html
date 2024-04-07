@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <!-- START OF HEAD AREA -->
+
   <head>
     <!-- PAGE META DATA -->
     <meta charset="UTF-8" />
@@ -31,6 +32,7 @@
   </head>
   <!-- END OF HEAD AREA -->
   <!-- START OF BODY AREA -->
+
   <body>
     <!-- top header area -->
     <header class="top-header">
@@ -41,9 +43,9 @@
           <span class="menu-icon" onclick="openSideBar()"
             ><i class="ri-menu-line"></i
           ></span>
-          <span class="nav-logo switch-to-home" onclick="gotoHomePage()"
-            ><h1 style="font-size: inherit">I-Tube</h1></span
-          >
+          <span class="nav-logo switch-to-home" onclick="gotoHomePage()">
+            <h1 style="font-size: inherit">I-Tube</h1>
+          </span>
         </div>
         <!-- central-nav bar -->
         <div class="central-nav">
@@ -432,7 +434,50 @@
             <!-- following-channel-profile-card -->
           </div>
           <!-- following channel contents -->
-          <div class="following-channel-contents"></div>
+          <div class="following-channel-contents">
+            <!-- following page banner and banner profile -->
+            <div class="following-channel-bannar-profile">
+              <div
+                class="following-page-banner"
+                style="
+                  background: url(./public/images/th1.jpg);
+                  background-size: cover;
+                "
+              ></div>
+              <!-- 1 -->
+              <div class="following-page-main-profile-area">
+                <!-- 2 -->
+                <div
+                  class="following-page-main-profile-pic"
+                  style="
+                    background: url(./public/images/th4.jpg);
+                    background-size: cover;
+                  "
+                ></div>
+                <!-- 2 -->
+                <div class="following-page-main-channel-name">
+                  Channel Name
+                  <span
+                    >90K&nbsp;&nbsp;Followers&nbsp;&nbsp;&nbsp;150&nbsp;&nbsp;Videos</span
+                  >
+                  <div class="following-page-main-btns">
+                    <button
+                      type="submit"
+                      class="following-page-main-follow-btn"
+                    >
+                      Follow
+                    </button>
+                    <button
+                    type="button"
+                    class="following-page-main-share-btn"
+                  >
+                    Share
+                  </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </main>

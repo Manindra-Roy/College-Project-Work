@@ -121,6 +121,7 @@ let shortVideo = document.querySelector(".short-video-card video");
 let shortVideoS = document.querySelectorAll(".short-video-card video");
 let followingPage = document.querySelector(".following-page");
 const gotoVideoPlayer = () => {
+  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   shortVideoSection.setAttribute("style", "display:none");
@@ -194,13 +195,13 @@ const gotoVideoPlayer = () => {
 };
 // switch to short video player page
 const gotoShortVideoPlayer = () => {
+  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:grid");
   video.pause();
   video.setAttribute("src", "");
-  closSideBar();
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
@@ -271,17 +272,21 @@ const gotoShortVideoPlayer = () => {
         //
         if (entry.isIntersecting) {
           // console.log(onScreenShortVideo);
-          console.log("played");
+          // console.log("played");
           onScreenShortVideo.play();
-          onScreenShortVideo.muted = !onScreenShortVideo.muted;
-          console.log(onScreenShortVideo.muted);
+          if (onScreenShortVideo.muted == true) {
+            onScreenShortVideo.muted = !onScreenShortVideo.muted;
+          }
+          // console.log(onScreenShortVideo.muted);
         } else {
           // console.log(onScreenShortVideo);
-          console.log("paused");
+          // console.log("paused");
           onScreenShortVideo.pause();
           onScreenShortVideo.currentTime = 0;
-          onScreenShortVideo.muted = !onScreenShortVideo.muted;
-          console.log(onScreenShortVideo.muted);
+          if (onScreenShortVideo.muted == true) {
+            onScreenShortVideo.muted = !onScreenShortVideo.muted;
+          }
+          // console.log(onScreenShortVideo.muted);
         }
       });
     }, options);
@@ -291,46 +296,24 @@ const gotoShortVideoPlayer = () => {
       val.paused ? val.play() : val.pause();
     });
   }
-  // setTimeout(() => {
-  //   document
-  //     .querySelector(".short-video-card")
-  //     .setAttribute("style", "display:none");
-  // }, 1);
-  // fix first short video volume problem
-  document.querySelector(".short-video-card video").muted =
-  !document.querySelector(".short-video-card video").muted;
-  // shortVolumeSeter()
 };
 // curently not warking ///////////////////////////******
 // short video volume mute/unmute
-const shortVolumeSeter = () => {
-  let shortViseoVolumeMuteUnmuteBtn = document.querySelectorAll(
-    ".short-video-card>i"
-  );
-  shortViseoVolumeMuteUnmuteBtn.forEach((svCardIcon) => {
-    document.querySelectorAll(".short-video-card>video").forEach((vol) => {
-      if (vol.muted) {
-        svCardIcon.setAttribute("class", "ri-volume-mute-fill");
-      } else {
-        svCardIcon.setAttribute("class", "ri-volume-up-fill");
-      }
-      svCardIcon.addEventListener("click", () => {
-        let shortVolumeStatus = svCardIcon.getAttribute("class");
-        if (shortVolumeStatus == "ri-volume-mute-fill") {
-          // vol.muted = !vol.muted;
-          vol.volume=1;
-          svCardIcon.setAttribute("class", "ri-volume-up-fill");
-        } else {
-          svCardIcon.setAttribute("class", "ri-volume-mute-fill");
-          vol.volume=0;
-          // vol.muted = !vol.muted;
-        }
-      });
+const shortVolumeSeter = (val) => {
+  console.log(val);
+  if (val.muted) {
+    document.querySelectorAll(`.${val.className}+i`).forEach((i) => {
+      i.setAttribute("class", "ri-volume-mute-fill");
     });
-  });
+  } else {
+    document.querySelectorAll(`.${val.className}+i`).forEach((i) => {
+      i.setAttribute("class", "ri-volume-up-fill");
+    });
+  }
 };
 // switch to following page
 const gotoFollowingPage = () => {
+  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
@@ -344,7 +327,6 @@ const gotoFollowingPage = () => {
   });
   video.pause();
   video.setAttribute("src", "");
-  closSideBar();
   document
     .querySelectorAll(".following-channel-contents .l-cards")
     .forEach((lvCard) => {
@@ -443,13 +425,13 @@ const refreshFollowingPage = () => {
 // switch to home page
 let switchToHomeButtons = document.querySelector(".switch-to-home");
 const gotoHomePage = () => {
+  closSideBar();
   contentCategories.setAttribute("style", "display:flex;");
   homePageContents.setAttribute("style", "display:grid;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   video.pause();
   video.setAttribute("src", "");
-  closSideBar();
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
