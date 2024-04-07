@@ -219,7 +219,7 @@ const gotoShortVideoPlayer = () => {
     });
 
   // card content data fetch for short video page
-  for (i = 0; i < videos.length - 8; i++) {
+  for (i = 0; i < videos.length - 10; i++) {
     document.querySelector(".short-video-section").innerHTML += `
     <div class="short-video-card">
     <video
@@ -229,6 +229,7 @@ const gotoShortVideoPlayer = () => {
       preload="none"
       loop
     ></video>
+    <i class="ri-volume-mute-fill"></i>
     <div class="short-video-info">
       <a href="#">
         <div
@@ -295,6 +296,38 @@ const gotoShortVideoPlayer = () => {
   //     .querySelector(".short-video-card")
   //     .setAttribute("style", "display:none");
   // }, 1);
+  // fix first short video volume problem
+  document.querySelector(".short-video-card video").muted =
+  !document.querySelector(".short-video-card video").muted;
+  // shortVolumeSeter()
+};
+// curently not warking ///////////////////////////******
+// short video volume mute/unmute
+const shortVolumeSeter = () => {
+  let shortViseoVolumeMuteUnmuteBtn = document.querySelectorAll(
+    ".short-video-card>i"
+  );
+  shortViseoVolumeMuteUnmuteBtn.forEach((svCardIcon) => {
+    document.querySelectorAll(".short-video-card>video").forEach((vol) => {
+      if (vol.muted) {
+        svCardIcon.setAttribute("class", "ri-volume-mute-fill");
+      } else {
+        svCardIcon.setAttribute("class", "ri-volume-up-fill");
+      }
+      svCardIcon.addEventListener("click", () => {
+        let shortVolumeStatus = svCardIcon.getAttribute("class");
+        if (shortVolumeStatus == "ri-volume-mute-fill") {
+          // vol.muted = !vol.muted;
+          vol.volume=1;
+          svCardIcon.setAttribute("class", "ri-volume-up-fill");
+        } else {
+          svCardIcon.setAttribute("class", "ri-volume-mute-fill");
+          vol.volume=0;
+          // vol.muted = !vol.muted;
+        }
+      });
+    });
+  });
 };
 // switch to following page
 const gotoFollowingPage = () => {
@@ -522,10 +555,6 @@ const changeUrl = (nextURL) => {
 };
 let nextURL = "http://127.0.0.1:5500/index.html";
 // changeUrl(nextURL)
-
-
-
-
 
 // setInterval(() => {
 //   console.clear()
