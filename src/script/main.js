@@ -40,25 +40,27 @@ const posters = [
   "./public/images/th6.jpg",
 ];
 const topContents = [
-  "Video",
-  "Music",
-  "Song",
-  "Trending",
-  "Tune",
-  "New",
+  "Videos",
+  "Musics",
+  "Songs",
+  "Trendings",
+  "Shorts",
+  "Education",
   "News",
+  "Sports",
 ];
-let videoTitles =
-  "This is the title of this video. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt, ducimus.";
+let videoTitles = "This is the title of this video. ";
 let channelNames = "Channel Name";
-/////////////////////////////////////////////////////////////
-// category data fetch
+// sample database ///////////////////////////////////////////
+
+// data fetch for Categories
 for (i = 0; i < topContents.length; i++) {
   document.querySelector(".content-categories").innerHTML += `
   <a href="#" class="top-contents">
   ${topContents[i]}
 </a>`;
 }
+
 // card content data fetch for hime page
 let j = 0;
 while (j < 1) {
@@ -97,7 +99,7 @@ while (j < 1) {
     </a>
     <div class="text-info">
       <a href="#" class="title">
-      ${videoTitles}
+      ${videoTitles} video No - ${i + 1}
       </a>
       <div class="views-and-dates">
         <a href="#" class="channel-name"
@@ -111,7 +113,8 @@ while (j < 1) {
   }
   j = j + 1;
 }
-// switch to video player from home page
+
+// All Variables
 let contentCategories = document.querySelector(".content-categories");
 let homePageContents = document.querySelector(".contents");
 let videoPlayerPage = document.querySelector(".video-player-page");
@@ -120,16 +123,25 @@ let shortVideoSection = document.querySelector(".short-video-section");
 let shortVideo = document.querySelector(".short-video-card video");
 let shortVideoS = document.querySelectorAll(".short-video-card video");
 let followingPage = document.querySelector(".following-page");
+let yourChannelPage = document.querySelector(".your-channel-page");
+
+// switch to video player page
 const gotoVideoPlayer = () => {
+  videoPlayerPage.setAttribute("style", "display:grid");
   closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   shortVideoSection.setAttribute("style", "display:none");
-  videoPlayerPage.setAttribute("style", "display:grid");
-
+  followingPage.style.display = "none";
+  yourChannelPage.style.display = "none";
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
     lvCard.remove();
   });
+  document
+    .querySelectorAll(".your-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
   document
     .querySelectorAll(".following-channel-contents .l-cards")
     .forEach((lvCard) => {
@@ -195,13 +207,20 @@ const gotoVideoPlayer = () => {
 };
 // switch to short video player page
 const gotoShortVideoPlayer = () => {
+  shortVideoSection.setAttribute("style", "display:grid");
   closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
-  shortVideoSection.setAttribute("style", "display:grid");
+  followingPage.style.display = "none";
+  yourChannelPage.style.display = "none";
   video.pause();
   video.setAttribute("src", "");
+  document
+    .querySelectorAll(".your-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
@@ -259,7 +278,7 @@ const gotoShortVideoPlayer = () => {
     </ul>
   </div>`;
   }
-  // //
+  // Short Video player //
   for (const val of document.querySelectorAll(".short-video-card video")) {
     let options = {
       root: shortVideoSection,
@@ -271,22 +290,16 @@ const gotoShortVideoPlayer = () => {
         let onScreenShortVideo = entry.target;
         //
         if (entry.isIntersecting) {
-          // console.log(onScreenShortVideo);
-          // console.log("played");
           onScreenShortVideo.play();
           if (onScreenShortVideo.muted == true) {
             onScreenShortVideo.muted = !onScreenShortVideo.muted;
           }
-          // console.log(onScreenShortVideo.muted);
         } else {
-          // console.log(onScreenShortVideo);
-          // console.log("paused");
           onScreenShortVideo.pause();
           onScreenShortVideo.currentTime = 0;
           if (onScreenShortVideo.muted == true) {
             onScreenShortVideo.muted = !onScreenShortVideo.muted;
           }
-          // console.log(onScreenShortVideo.muted);
         }
       });
     }, options);
@@ -313,12 +326,13 @@ const shortVolumeSeter = (val) => {
 };
 // switch to following page
 const gotoFollowingPage = () => {
+  followingPage.setAttribute("style", "display:grid");
   closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
-  followingPage.setAttribute("style", "display:grid");
+  yourChannelPage.style.display = "none";
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
@@ -327,6 +341,11 @@ const gotoFollowingPage = () => {
   });
   video.pause();
   video.setAttribute("src", "");
+  document
+    .querySelectorAll(".your-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
   document
     .querySelectorAll(".following-channel-contents .l-cards")
     .forEach((lvCard) => {
@@ -338,7 +357,7 @@ const gotoFollowingPage = () => {
     .forEach((val) => {
       val.remove();
     });
-
+  // redaring followed chnnel cards
   for (i = 10; i < videos.length; i++) {
     document.querySelector(".following-channels").innerHTML += `
       <div class="following-channel-profile-card" onclick="refreshFollowingPage(),gotoFollowingPage()">
@@ -354,7 +373,6 @@ const gotoFollowingPage = () => {
       >
     </div>`;
   }
-
   // set default thambnail on empty thambnail videos
   document.querySelectorAll(".following-channel-profile-pic").forEach((val) => {
     let bGOfProfile = val.style.getPropertyValue("background");
@@ -363,7 +381,7 @@ const gotoFollowingPage = () => {
       val.style.setProperty("background-size", "cover");
     }
   });
-
+  // rendaring video cards
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".following-channel-contents").innerHTML += `
   <div class="l-cards">
@@ -422,14 +440,107 @@ const refreshFollowingPage = () => {
       val.remove();
     });
 };
-// switch to home page
-let switchToHomeButtons = document.querySelector(".switch-to-home");
-const gotoHomePage = () => {
+// switch to your channel page
+const goToYourChannel = () => {
+  yourChannelPage.setAttribute("style", "display:block");
   closSideBar();
-  contentCategories.setAttribute("style", "display:flex;");
-  homePageContents.setAttribute("style", "display:grid;");
+  contentCategories.setAttribute("style", "display:none;");
+  homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
+  followingPage.setAttribute("style", "display:none");
+  document.querySelectorAll(".short-video-card").forEach((svCards) => {
+    svCards.remove();
+  });
+  document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
+    lvCard.remove();
+  });
+  video.pause();
+  video.setAttribute("src", "");
+  document
+    .querySelectorAll(".following-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
+  document
+    .querySelectorAll(".your-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
+  document
+    .querySelectorAll(".following-channels .following-channel-profile-card")
+    .forEach((val) => {
+      val.remove();
+    });
+  // set default thambnail on empty thambnail videos
+  document.querySelectorAll(".your-channel-profile-pic").forEach((val) => {
+    let bGOfProfile = val.style.getPropertyValue("background");
+    if (bGOfProfile.trim().length == 25) {
+      val.style.setProperty("background", "url(./public/images/d.jpg)");
+      val.style.setProperty("background-size", "cover");
+    }
+  });
+  // rendaring video cards
+  for (i = 0; i < videos.length; i++) {
+    document.querySelector(".your-channel-contents").innerHTML += `
+  <div class="l-cards">
+  <div class="video-area">
+    <a href="#" >
+    <video
+    class="vid"
+    onclick="getSrcOfVideo(),gotoVideoPlayer()"
+    poster=${posters[i]}
+    src=${videos[i]}
+    onmouseover="setTimeout(() => {
+      this.play();
+   }, 250);"
+   onmouseout="setTimeout(() => {
+     this.pause();
+     this.currentTime=0;
+     this.load();
+   }, 250);"
+        muted
+        loop
+        preload="none"
+      ></video>
+    </a>
+  </div>
+  <div class="video-meta">
+    <a href="#" class="profile">
+      <div
+        class="profile-pic"
+        style="
+          background: url(${posters[i]});background-size: cover;
+        "
+      ></div>
+    </a>
+    <div class="text-info">
+      <a href="#" class="title">
+      ${videoTitles}
+      </a>
+      <div class="views-and-dates">
+        <a href="#" class="channel-name"
+          >${channelNames}</a
+        >
+        &nbsp;&nbsp;&nbsp;100K Views&nbsp;&nbsp;30 Days Ago
+      </div>
+    </div>
+  </div>
+  </div>`;
+  }
+  // set default thambnail on empty thambnail videos and set default profile pic on empty profiles
+  defaultPosterAndProfilePic();
+};
+// switch to home page
+// let switchToHomeButtons = document.querySelector(".switch-to-home");
+const gotoHomePage = () => {
+  contentCategories.setAttribute("style", "display:flex;");
+  homePageContents.setAttribute("style", "display:grid;");
+  closSideBar();
+  videoPlayerPage.setAttribute("style", "display:none");
+  shortVideoSection.setAttribute("style", "display:none");
+  followingPage.style.display = "none";
+  yourChannelPage.style.display = "none";
   video.pause();
   video.setAttribute("src", "");
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
@@ -440,6 +551,11 @@ const gotoHomePage = () => {
   });
   document
     .querySelectorAll(".following-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
+  document
+    .querySelectorAll(".your-channel-contents .l-cards")
     .forEach((lvCard) => {
       lvCard.remove();
     });
