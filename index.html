@@ -24,6 +24,7 @@
     <link rel="stylesheet" href="./src/style/style-for-video-player.css" />
     <link rel="stylesheet" href="./src/style/style-for-short-video-sec.css" />
     <link rel="stylesheet" href="./src/style/Style-for-following-page.css" />
+    <link rel="stylesheet" href="./src/style/style-for-your-channel-page.css" />
     <link rel="stylesheet" href="./src/style/style-1600-1800.css" />
     <link rel="stylesheet" href="./src/style/style-1280-1600.css" />
     <link rel="stylesheet" href="./src/style/style-custom-scrollbar.css" />
@@ -93,7 +94,7 @@
         <!-- second part of the middle bar -->
         <ul class="middle-of-side-bar">
           <li>
-            <a href="#" class="your-channel"
+            <a href="#" class="your-channel" onclick="goToYourChannel()"
               ><i class="ri-movie-fill"></i>&nbsp;&nbsp;&nbsp;Channel</a
             >
           </li>
@@ -306,10 +307,7 @@
               <!-- 1 -->
               <div class="playing-video-title">
                 This is the title of this video. Lorem ipsum dolor sit amet
-                consectetur.This is the title of this video. Lorem ipsum dolor
-                sit amet consectetur. This is the title of this video. Lorem
-                ipsum dolor sit amet consectetur.This is the title of this
-                video. Lorem ipsum dolor sit amet consectetur.
+                consectetur.This is the title of this video.
               </div>
               <!-- 1 -->.
               <div class="playing-video-info">
@@ -467,12 +465,57 @@
                     >
                       Follow
                     </button>
-                    <button
-                    type="button"
-                    class="following-page-main-share-btn"
+                    <button type="button" class="following-page-main-share-btn">
+                      Share
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Your Channel page  -->
+        <div class="your-channel-page">
+          <!-- your-channel channel contents -->
+          <div class="your-channel-contents">
+            <!-- your-channel page banner and banner profile -->
+            <div class="your-channel-bannar-profile">
+              <div
+                class="your-channel-page-banner"
+                style="
+                  background: url(./public/images/th1.jpg);
+                  background-size: cover;
+                "
+              ></div>
+              <!-- 1 -->
+              <div class="your-channel-page-main-profile-area">
+                <!-- 2 -->
+                <div
+                  class="your-channel-page-main-profile-pic"
+                  style="
+                    background: url(./public/images/th4.jpg);
+                    background-size: cover;
+                  "
+                ></div>
+                <!-- 2 -->
+                <div class="your-channel-page-main-channel-name">
+                  Channel Name
+                  <span
+                    >90K&nbsp;&nbsp;Followers&nbsp;&nbsp;&nbsp;150&nbsp;&nbsp;Videos</span
                   >
-                    Share
-                  </button>
+                  <div class="your-channel-page-main-btns">
+                    <button
+                      type="submit"
+                      class="your-channel-page-main-follow-btn"
+                    >
+                      Create
+                    </button>
+                    <button
+                      type="button"
+                      class="your-channel-page-main-share-btn"
+                    >
+                      Share
+                    </button>
                   </div>
                 </div>
               </div>

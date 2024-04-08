@@ -290,7 +290,7 @@ video {
 
 /* ////////////////////// comments ///////////// */
 .thing-container {
-  height: 100svh;
+  height: auto;
   position: relative;
   width: 100%;
   max-width: 1200px;
@@ -307,10 +307,11 @@ video {
   width: 100%;
   height: 54px;
   height: 4ch;
+  height: auto;
   background-color: var(--main-bg-color);
-  font-size: 2.15rem;
-  font-weight: 500;
-  font-family: "Roboto", sans-serif;
+  font-size: 2rem;
+  font-weight: 525;
+  font-family: "Roboto", "Arial", "Poppins", sans-serif;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -360,6 +361,7 @@ video {
 }
 .playing-video-info .left-playing-video-info .c-name-and-follow .channel-name {
   font-size: 1.5rem;
+  font-weight: 500;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -391,6 +393,7 @@ video {
   align-items: center;
   font-size: 1.75rem;
   font-family: "Poppins", sans-serif;
+  font-weight: 500;
   background-color: var(--second-bg-color);
   color: var(--font-color);
 }
@@ -446,6 +449,7 @@ video {
   justify-content: start;
   align-items: center;
   font-size: 1.35rem;
+  font-weight: 500;
 }
 .right-playing-video-info .like-dislike .like {
   color: var(--font-color);
@@ -459,6 +463,7 @@ video {
 }
 .right-playing-video-info .like-dislike .like i {
   font-size: 2rem;
+  font-weight: normal;
 }
 .right-playing-video-info .like-dislike .dislike {
   color: var(--font-color);
@@ -472,6 +477,7 @@ video {
 }
 .right-playing-video-info .like-dislike .dislike i {
   font-size: 2rem;
+  font-weight: normal;
 }
 /* video share button */
 .right-playing-video-info .video-share-btn {
@@ -490,9 +496,11 @@ video {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 600;
 }
 .right-playing-video-info .video-share-btn .share i {
   font-size: 2rem;
+  font-weight: normal;
 }
 /* video download button */
 .right-playing-video-info .video-download-btn {
@@ -511,16 +519,18 @@ video {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-weight: 600;
 }
 .right-playing-video-info .video-download-btn .download i {
   font-size: 2rem;
+  font-weight: normal;
 }
 /* //////////////////////// video-description /////////////////////// */
 .thing-container .playing-video-description {
   height: clamp(2.5rem 5rem auto);
   width: 100%;
   background-color: var(--comment-sec-bg-color);
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   padding: 15px 10px;
   border-radius: 15px;
   margin-top: 15px;
