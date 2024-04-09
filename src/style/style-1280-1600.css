@@ -17,4 +17,9 @@
   .your-channel-page .your-channel-bannar-profile {
     grid-area: 1/1/3/4;
   }
+  .short-video-like-dislike-share i {
+    padding: 10px;
+    font-size: 2.5rem;
+  }
+  
 }

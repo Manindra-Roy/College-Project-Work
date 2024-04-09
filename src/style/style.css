@@ -278,7 +278,13 @@ body {
 .l-cards .video-area {
   aspect-ratio: 16/9;
   overflow: hidden;
-  border-radius: 15px;
+  border-radius: 12.5px;
+  transition:border-radius, .250ms ;
+}
+/* hover */
+.l-cards .video-area:hover{
+  border-radius: 0px;
+  transition:border-radius, .250ms ;
 }
 .video-area video {
   width: 100%;
