@@ -66,10 +66,11 @@ let j = 0;
 while (j < 1) {
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".contents").innerHTML += `
-  <div class="l-cards">
+  <div class="l-cards" id="homelc${i + 1}"> 
   <div class="video-area">
     <a href="#" >
     <video
+    id="homeV${i + 1}"
     class="vid"
     onclick="getSrcOfVideo(),gotoVideoPlayer()"
     poster=${posters[i]}
@@ -99,7 +100,7 @@ while (j < 1) {
     </a>
     <div class="text-info">
       <a href="#" class="title">
-      ${videoTitles} video No - ${i + 1}
+      ${videoTitles} home video No - ${i + 1}
       </a>
       <div class="views-and-dates">
         <a href="#" class="channel-name"
@@ -127,40 +128,25 @@ let yourChannelPage = document.querySelector(".your-channel-page");
 
 // switch to video player page
 const gotoVideoPlayer = () => {
-  videoPlayerPage.setAttribute("style", "display:grid");
-  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   shortVideoSection.setAttribute("style", "display:none");
   followingPage.style.display = "none";
   yourChannelPage.style.display = "none";
+  videoPlayerPage.setAttribute("style", "display:grid");
+  closSideBar();
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
     lvCard.remove();
   });
-  document
-    .querySelectorAll(".your-channel-contents .l-cards")
-    .forEach((lvCard) => {
-      lvCard.remove();
-    });
-  document
-    .querySelectorAll(".following-channel-contents .l-cards")
-    .forEach((lvCard) => {
-      lvCard.remove();
-    });
-  document
-    .querySelectorAll(".following-channels .following-channel-profile-card")
-    .forEach((val) => {
-      val.remove();
-    });
-
   for (i = 0; i < videos.length; i++) {
     document.querySelector(
       ".video-player-page .suggested-videos"
     ).innerHTML += `
-    <div class="l-cards">
+    <div class="l-cards" id="vplc${i + 1}">
     <div class="video-area">
       <a href="#" >
       <video
+      id="vpV${i + 1}"
       class="vid"
       onclick="getSrcOfVideo(),gotoVideoPlayer()"
       poster=${posters[i]}
@@ -190,7 +176,7 @@ const gotoVideoPlayer = () => {
       </a>
       <div class="text-info">
         <a href="#" class="title">
-        ${videoTitles}
+        ${videoTitles} suggested video No - ${i + 1}
         </a>
         <div class="views-and-dates">
           <a href="#" class="channel-name"
@@ -204,16 +190,33 @@ const gotoVideoPlayer = () => {
   }
   // set default thambnail on empty thambnail videos and set default profile pic on empty profiles
   defaultPosterAndProfilePic();
+  setTimeout(() => {
+    document
+      .querySelectorAll(".your-channel-contents .l-cards")
+      .forEach((yclvCard) => {
+        yclvCard.remove();
+      });
+    document
+      .querySelectorAll(".following-channel-contents .l-cards")
+      .forEach((fclvCard) => {
+        fclvCard.remove();
+      });
+    document
+      .querySelectorAll(".following-channels .following-channel-profile-card")
+      .forEach((val) => {
+        val.remove();
+      });
+  }, 1);
 };
 // switch to short video player page
 const gotoShortVideoPlayer = () => {
-  shortVideoSection.setAttribute("style", "display:grid");
-  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   followingPage.style.display = "none";
   yourChannelPage.style.display = "none";
+  shortVideoSection.setAttribute("style", "display:grid");
+  closSideBar();
   video.pause();
   video.setAttribute("src", "");
   document
@@ -221,9 +224,6 @@ const gotoShortVideoPlayer = () => {
     .forEach((lvCard) => {
       lvCard.remove();
     });
-  document.querySelectorAll(".short-video-card").forEach((svCards) => {
-    svCards.remove();
-  });
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
     lvCard.remove();
   });
@@ -237,10 +237,13 @@ const gotoShortVideoPlayer = () => {
     .forEach((val) => {
       val.remove();
     });
-
-  // card content data fetch for short video page
-  for (i = 0; i < videos.length - 10; i++) {
-    document.querySelector(".short-video-section").innerHTML += `
+  setTimeout(() => {
+    document.querySelectorAll(".short-video-card").forEach((svCards) => {
+      svCards.remove();
+    });
+    // card content data fetch for short video page
+    for (i = 0; i < videos.length - 10; i++) {
+      document.querySelector(".short-video-section").innerHTML += `
     <div class="short-video-card">
     <video
       class="short-video-player"
@@ -277,38 +280,39 @@ const gotoShortVideoPlayer = () => {
       </li>
     </ul>
   </div>`;
-  }
-  // Short Video player //
-  for (const val of document.querySelectorAll(".short-video-card video")) {
-    let options = {
-      root: shortVideoSection,
-      rootMargin: "10px",
-      threshold: 1.0,
-    };
-    let observer = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        let onScreenShortVideo = entry.target;
-        //
-        if (entry.isIntersecting) {
-          onScreenShortVideo.play();
-          if (onScreenShortVideo.muted == true) {
-            onScreenShortVideo.muted = !onScreenShortVideo.muted;
+    }
+    // Short Video player //
+    for (const val of document.querySelectorAll(".short-video-card video")) {
+      let options = {
+        root: shortVideoSection,
+        rootMargin: "10px",
+        threshold: 1.0,
+      };
+      let observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          let onScreenShortVideo = entry.target;
+          //
+          if (entry.isIntersecting) {
+            onScreenShortVideo.play();
+            if (onScreenShortVideo.muted == true) {
+              onScreenShortVideo.muted = !onScreenShortVideo.muted;
+            }
+          } else {
+            onScreenShortVideo.pause();
+            onScreenShortVideo.currentTime = 0;
+            if (onScreenShortVideo.muted == true) {
+              onScreenShortVideo.muted = !onScreenShortVideo.muted;
+            }
           }
-        } else {
-          onScreenShortVideo.pause();
-          onScreenShortVideo.currentTime = 0;
-          if (onScreenShortVideo.muted == true) {
-            onScreenShortVideo.muted = !onScreenShortVideo.muted;
-          }
-        }
+        });
+      }, options);
+      observer.observe(val);
+      // short video play/pause button
+      val.addEventListener("click", () => {
+        val.paused ? val.play() : val.pause();
       });
-    }, options);
-    observer.observe(val);
-    // short video play/pause button
-    val.addEventListener("click", () => {
-      val.paused ? val.play() : val.pause();
-    });
-  }
+    }
+  }, 150);
 };
 // curently not warking ///////////////////////////******
 // short video volume mute/unmute
@@ -326,21 +330,21 @@ const shortVolumeSeter = (val) => {
 };
 // switch to following page
 const gotoFollowingPage = () => {
-  followingPage.setAttribute("style", "display:grid");
-  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   yourChannelPage.style.display = "none";
+  followingPage.setAttribute("style", "display:grid");
+  closSideBar();
+  video.pause();
+  video.setAttribute("src", "");
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
     lvCard.remove();
   });
-  video.pause();
-  video.setAttribute("src", "");
   document
     .querySelectorAll(".your-channel-contents .l-cards")
     .forEach((lvCard) => {
@@ -351,7 +355,6 @@ const gotoFollowingPage = () => {
     .forEach((lvCard) => {
       lvCard.remove();
     });
-
   document
     .querySelectorAll(".following-channels .following-channel-profile-card")
     .forEach((val) => {
@@ -384,50 +387,51 @@ const gotoFollowingPage = () => {
   // rendaring video cards
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".following-channel-contents").innerHTML += `
-  <div class="l-cards">
-  <div class="video-area">
-    <a href="#" >
-    <video
-    class="vid"
-    onclick="getSrcOfVideo(),gotoVideoPlayer()"
-    poster=${posters[i]}
-    src=${videos[i]}
-    onmouseover="setTimeout(() => {
-      this.play();
-   }, 250);"
-   onmouseout="setTimeout(() => {
-     this.pause();
-     this.currentTime=0;
-     this.load();
-   }, 250);"
-        muted
-        loop
-        preload="none"
-      ></video>
-    </a>
-  </div>
-  <div class="video-meta">
-    <a href="#" class="profile">
-      <div
-        class="profile-pic"
-        style="
-          background: url(${posters[i]});background-size: cover;
-        "
-      ></div>
-    </a>
-    <div class="text-info">
-      <a href="#" class="title">
-      ${videoTitles}
+    <div class="l-cards" id="fplc${i + 1}">
+    <div class="video-area">
+      <a href="#" >
+      <video
+      id="fpV${i + 1}"
+      class="vid"
+      onclick="getSrcOfVideo(),gotoVideoPlayer()"
+      poster=${posters[i]}
+      src=${videos[i]}
+      onmouseover="setTimeout(() => {
+        this.play();
+     }, 250);"
+     onmouseout="setTimeout(() => {
+       this.pause();
+       this.currentTime=0;
+       this.load();
+     }, 250);"
+          muted
+          loop
+          preload="none"
+        ></video>
       </a>
-      <div class="views-and-dates">
-        <a href="#" class="channel-name"
-          >${channelNames}</a
-        >
-        &nbsp;&nbsp;&nbsp;100K Views&nbsp;&nbsp;30 Days Ago
+    </div>
+    <div class="video-meta">
+      <a href="#" class="profile">
+        <div
+          class="profile-pic"
+          style="
+            background: url(${posters[i]});background-size: cover;
+          "
+        ></div>
+      </a>
+      <div class="text-info">
+        <a href="#" class="title">
+        ${videoTitles} fp video No - ${i + 1}
+        </a>
+        <div class="views-and-dates">
+          <a href="#" class="channel-name"
+            >${channelNames}</a
+          >
+          &nbsp;&nbsp;&nbsp;100K Views&nbsp;&nbsp;30 Days Ago
+        </div>
       </div>
     </div>
-  </div>
-  </div>`;
+    </div>`;
   }
   // set default thambnail on empty thambnail videos and set default profile pic on empty profiles
   defaultPosterAndProfilePic();
@@ -442,21 +446,21 @@ const refreshFollowingPage = () => {
 };
 // switch to your channel page
 const goToYourChannel = () => {
-  yourChannelPage.setAttribute("style", "display:block");
-  closSideBar();
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   followingPage.setAttribute("style", "display:none");
+  yourChannelPage.setAttribute("style", "display:block");
+  closSideBar();
+  video.pause();
+  video.setAttribute("src", "");
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
     svCards.remove();
   });
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
     lvCard.remove();
   });
-  video.pause();
-  video.setAttribute("src", "");
   document
     .querySelectorAll(".following-channel-contents .l-cards")
     .forEach((lvCard) => {
@@ -483,10 +487,11 @@ const goToYourChannel = () => {
   // rendaring video cards
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".your-channel-contents").innerHTML += `
-  <div class="l-cards">
+  <div class="l-cards" id="ycplc${i + 1}">
   <div class="video-area">
     <a href="#" >
     <video
+    id="yplc${i + 1}"
     class="vid"
     onclick="getSrcOfVideo(),gotoVideoPlayer()"
     poster=${posters[i]}
@@ -534,13 +539,13 @@ const goToYourChannel = () => {
 // switch to home page
 // let switchToHomeButtons = document.querySelector(".switch-to-home");
 const gotoHomePage = () => {
-  contentCategories.setAttribute("style", "display:flex;");
-  homePageContents.setAttribute("style", "display:grid;");
-  closSideBar();
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   followingPage.style.display = "none";
   yourChannelPage.style.display = "none";
+  contentCategories.setAttribute("style", "display:flex;");
+  homePageContents.setAttribute("style", "display:grid;");
+  closSideBar();
   video.pause();
   video.setAttribute("src", "");
   document.querySelectorAll(".short-video-card").forEach((svCards) => {
@@ -569,8 +574,14 @@ const gotoHomePage = () => {
 const getSrcOfVideo = () => {
   document.onclick = (e) => {
     if (e.target.className == "vid") {
+      let idOfVCard = e.target.id;
+      console.log(idOfVCard);
       let vSrc = e.target.getAttribute("src");
       let posterPath = e.target.getAttribute("poster");
+      let vTitle = document.querySelector(`.l-cards:has(a>#${idOfVCard})`);
+      console.log(vTitle);
+      let vTitle1 = document.querySelector(`#${vTitle.id} .video-meta .title`);
+      console.log(vTitle1);
       video.setAttribute("src", `${vSrc}`);
       document
         .querySelector(".left-playing-video-info .profile-pic")
@@ -578,6 +589,9 @@ const getSrcOfVideo = () => {
           "style",
           `background: url(${posterPath});background-size: cover;`
         );
+      document.querySelector(
+        ".playing-video-title"
+      ).innerText = `${vTitle1.innerText}`;
       video.play();
     }
   };
