@@ -52,7 +52,6 @@ const topContents = [
 let videoTitles = "This is the title of this video. ";
 let channelNames = "Channel Name";
 // sample database ///////////////////////////////////////////
-
 // data fetch for Categories
 for (i = 0; i < topContents.length; i++) {
   document.querySelector(".content-categories").innerHTML += `
@@ -105,7 +104,7 @@ while (j < 1) {
       <div class="views-and-dates">
         <a href="#" class="channel-name"
           >${channelNames}</a
-        >
+        > 
         &nbsp;&nbsp;&nbsp;100K Views&nbsp;&nbsp;30 Days Ago
       </div>
     </div>
@@ -128,6 +127,8 @@ let yourChannelPage = document.querySelector(".your-channel-page");
 
 // switch to video player page
 const gotoVideoPlayer = () => {
+  document.querySelector(".page-loading-animation").style.opacity = "1";
+  document.querySelector(".page-loading-animation").style.display = "flex";
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   shortVideoSection.setAttribute("style", "display:none");
@@ -207,9 +208,14 @@ const gotoVideoPlayer = () => {
         val.remove();
       });
   }, 1);
+  // store in session storage
+  sessionStorage.setItem("changePage", "gotoVideoPlayer()");
+  preLoader()
 };
 // switch to short video player page
 const gotoShortVideoPlayer = () => {
+  document.querySelector(".page-loading-animation").style.opacity = "1";
+  document.querySelector(".page-loading-animation").style.display = "flex";
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
@@ -313,6 +319,9 @@ const gotoShortVideoPlayer = () => {
       });
     }
   }, 150);
+  // store in session storage
+  sessionStorage.setItem("changePage", "gotoShortVideoPlayer()");
+  preLoader()
 };
 // curently not warking ///////////////////////////******
 // short video volume mute/unmute
@@ -330,6 +339,8 @@ const shortVolumeSeter = (val) => {
 };
 // switch to following page
 const gotoFollowingPage = () => {
+  document.querySelector(".page-loading-animation").style.opacity = "1";
+  document.querySelector(".page-loading-animation").style.display = "flex";
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
@@ -435,6 +446,9 @@ const gotoFollowingPage = () => {
   }
   // set default thambnail on empty thambnail videos and set default profile pic on empty profiles
   defaultPosterAndProfilePic();
+  // store in session storage
+  sessionStorage.setItem("changePage", "gotoFollowingPage()");
+  preLoader()
 };
 // refresh following page
 const refreshFollowingPage = () => {
@@ -446,6 +460,8 @@ const refreshFollowingPage = () => {
 };
 // switch to your channel page
 const goToYourChannel = () => {
+  document.querySelector(".page-loading-animation").style.opacity = "1";
+  document.querySelector(".page-loading-animation").style.display = "flex";
   contentCategories.setAttribute("style", "display:none;");
   homePageContents.setAttribute("style", "display:none;");
   videoPlayerPage.setAttribute("style", "display:none");
@@ -535,10 +551,15 @@ const goToYourChannel = () => {
   }
   // set default thambnail on empty thambnail videos and set default profile pic on empty profiles
   defaultPosterAndProfilePic();
+  // store in session storage
+  sessionStorage.setItem("changePage", "goToYourChannel()");
+  preLoader()
 };
 // switch to home page
 // let switchToHomeButtons = document.querySelector(".switch-to-home");
 const gotoHomePage = () => {
+  document.querySelector(".page-loading-animation").style.opacity = "1";
+  document.querySelector(".page-loading-animation").style.display = "flex";
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   followingPage.style.display = "none";
@@ -569,19 +590,19 @@ const gotoHomePage = () => {
     .forEach((val) => {
       val.remove();
     });
+  // store in session storage
+  sessionStorage.setItem("changePage", "gotoHomePage()");
+  preLoader()
 };
 // video transfer engine //////////////
 const getSrcOfVideo = () => {
   document.onclick = (e) => {
     if (e.target.className == "vid") {
       let idOfVCard = e.target.id;
-      console.log(idOfVCard);
       let vSrc = e.target.getAttribute("src");
       let posterPath = e.target.getAttribute("poster");
       let vTitle = document.querySelector(`.l-cards:has(a>#${idOfVCard})`);
-      console.log(vTitle);
       let vTitle1 = document.querySelector(`#${vTitle.id} .video-meta .title`);
-      console.log(vTitle1);
       video.setAttribute("src", `${vSrc}`);
       document
         .querySelector(".left-playing-video-info .profile-pic")
@@ -593,6 +614,9 @@ const getSrcOfVideo = () => {
         ".playing-video-title"
       ).innerText = `${vTitle1.innerText}`;
       video.play();
+      sessionStorage.setItem("videoPlayerTitle", `${vTitle1.innerText}`);
+      sessionStorage.setItem("videoPlayerVideoSrc",`${vSrc}`)
+      sessionStorage.setItem("videoPlayerVideoPoster",`${posterPath}`)
     }
   };
 };
@@ -648,6 +672,7 @@ const switchToLight = () => {
   // root.style.setProperty("--nav-logo-color", "#20dc55");
   darkOrLightIconI.setAttribute("class", "ri-moon-fill");
   darkOrLightIcon.setAttribute("onclick", "switchToDark()");
+  sessionStorage.setItem("m-bg",'#E4E4E4')
 };
 const switchToDark = () => {
   root.style.setProperty("--main-bg-color", "#0F0F0F");
@@ -656,6 +681,7 @@ const switchToDark = () => {
   // root.style.setProperty("--nav-logo-color", "#2020dc");
   darkOrLightIconI.setAttribute("class", "ri-sun-fill");
   darkOrLightIcon.setAttribute("onclick", "switchToLight()");
+  sessionStorage.setItem("m-bg",'#0F0F0F')
 };
 const changeUrl = (nextURL) => {
   const nextTitle = "My new page title";

@@ -20,6 +20,7 @@
       @import url("https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
     </style>
     <!-- STYLE/CSS-REFERENCES -->
+    <link rel="stylesheet" href="./src/style/style-for-page-pre-loader.css" />
     <link rel="stylesheet" href="./src/style/style.css" />
     <link rel="stylesheet" href="./src/style/style-for-video-player.css" />
     <link rel="stylesheet" href="./src/style/style-for-short-video-sec.css" />
@@ -34,7 +35,7 @@
   <!-- END OF HEAD AREA -->
   <!-- START OF BODY AREA -->
 
-  <body>
+  <body onload="preLoader()">
     <!-- top header area -->
     <header class="top-header">
       <!-- nav bar -->
@@ -112,6 +113,11 @@
       </aside>
       <!--start of content section -->
       <div class="content-section">
+        <!-- pre loader page animation -->
+        <div class="page-loading-animation">
+          <span class="l-dot"></span>
+          Loading...
+        </div>
         <!-- content categories -->
         <div class="content-categories">
           <!-- <a href="#" class="top-contents">
@@ -528,5 +534,49 @@
     <!-- SCRIPTS/JS -->
     <script src="./src/script/main.js"></script>
     <script src="./src/script/video-player.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function (event) {
+        if (sessionStorage.getItem("m-bg") == "#E4E4E4") {
+          switchToLight();
+        } else if (sessionStorage.getItem("m-bg") == "#0F0F0F") {
+          switchToDark();
+        }
+
+        sessionStorage.getItem("m-bg");
+        let changePage = sessionStorage.getItem("changePage");
+        if (changePage == "gotoHomePage()") {
+          gotoHomePage();
+        } else if (changePage == "gotoVideoPlayer()") {
+          gotoVideoPlayer();
+          video.setAttribute(
+            "src",
+            `${sessionStorage.getItem("videoPlayerVideoSrc")}`
+          );
+          document.querySelector(
+            ".playing-video-title"
+          ).innerText = `${sessionStorage.getItem("videoPlayerTitle")}`;
+          document
+            .querySelector(".left-playing-video-info .profile-pic")
+            .setAttribute(
+              "style",
+              `background: url(${sessionStorage.getItem(
+                "videoPlayerVideoPoster"
+              )});background-size: cover;`
+            );
+          video.setAttribute(
+            "poster",
+            `${sessionStorage.getItem("videoPlayerVideoPoster")}`
+          );
+        } else if (changePage == "gotoShortVideoPlayer()") {
+          gotoShortVideoPlayer();
+        } else if (changePage == "gotoFollowingPage()") {
+          gotoFollowingPage();
+        } else if (changePage == "goToYourChannel()") {
+          goToYourChannel();
+        }
+      });
+    </script>
+    <script src="./src/script/pre-loader.js"></script>
   </body>
 </html>
