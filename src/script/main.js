@@ -210,7 +210,7 @@ const gotoVideoPlayer = () => {
   }, 1);
   // store in session storage
   sessionStorage.setItem("changePage", "gotoVideoPlayer()");
-  preLoader()
+  preLoader();
 };
 // switch to short video player page
 const gotoShortVideoPlayer = () => {
@@ -250,15 +250,20 @@ const gotoShortVideoPlayer = () => {
     // card content data fetch for short video page
     for (i = 0; i < videos.length - 10; i++) {
       document.querySelector(".short-video-section").innerHTML += `
-    <div class="short-video-card">
+    <div class="short-video-card" id="svc-id${i + 1}">
     <video
+      onclick="svppBtnControl1()"
       class="short-video-player"
+      id="svp-id${i + 1}"
       src=${videos[i]}
       autoplay="false"
       preload="none"
       loop
     ></video>
-    <i class="ri-volume-mute-fill"></i>
+    <i class="ri-pause-fill sv-play-pause-btn" id="pp-id${
+      i + 1
+    }" onclick="svppBtnControl2()"></i>
+    <i class="ri-volume-mute-fill volume-c" id="volmum-id${i + 1}"></i>
     <div class="short-video-info">
       <a href="#">
         <div
@@ -303,26 +308,78 @@ const gotoShortVideoPlayer = () => {
             if (onScreenShortVideo.muted == true) {
               onScreenShortVideo.muted = !onScreenShortVideo.muted;
             }
+            let ppBtn = document.querySelector(
+              `.short-video-card:has(#${onScreenShortVideo.id})`
+            );
+            let ppBtn1 = document.querySelector(
+              `#${ppBtn.id} .sv-play-pause-btn`
+            );
+            ppBtn1.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
           } else {
             onScreenShortVideo.pause();
             onScreenShortVideo.currentTime = 0;
             if (onScreenShortVideo.muted == true) {
               onScreenShortVideo.muted = !onScreenShortVideo.muted;
             }
+            let ppBtn = document.querySelector(
+              `.short-video-card:has(#${onScreenShortVideo.id})`
+            );
+            let ppBtn1 = document.querySelector(
+              `#${ppBtn.id} .sv-play-pause-btn`
+            );
+            ppBtn1.setAttribute("class", "ri-play-fill sv-play-pause-btn");
           }
         });
       }, options);
       observer.observe(val);
-      // short video play/pause button
-      val.addEventListener("click", () => {
-        val.paused ? val.play() : val.pause();
-      });
     }
   }, 150);
   // store in session storage
   sessionStorage.setItem("changePage", "gotoShortVideoPlayer()");
-  preLoader()
+  preLoader();
 };
+// short video play/pause button 1
+const svppBtnControl1 = () => {
+  document.onclick = (ev1) => {
+    ev1.stopPropagation();
+    if (ev1.target.className == "short-video-player") {
+      let idOfVCard = ev1.target.id;
+      let ppBtn = document.querySelector(
+        `.short-video-card:has(#${idOfVCard})`
+      );
+      let ppBtn1 = document.querySelector(`#${ppBtn.id} .sv-play-pause-btn`);
+      if (ev1.target.paused) {
+        ev1.target.play();
+        ppBtn1.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
+      } else {
+        ev1.target.pause();
+        ppBtn1.setAttribute("class", "ri-play-fill sv-play-pause-btn");
+      }
+    }
+  };
+};
+// short video play pause button 2
+const svppBtnControl2 = () => {
+  document.onclick = (ev2) => {
+    ev2.stopPropagation();
+    if (
+      ev2.target.className == "ri-pause-fill sv-play-pause-btn" ||
+      "ri-play-fill sv-play-pause-btn"
+    ) {
+      let idOfSvBtn = ev2.target.id;
+      let ppvc = document.querySelector(`.short-video-card:has(#${idOfSvBtn})`);
+      let ppvc1 = document.querySelector(`#${ppvc.id} .short-video-player`);
+      if (ppvc1.paused) {
+        ev2.target.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
+        ppvc1.play();
+      } else {
+        ev2.target.setAttribute("class", "ri-play-fill sv-play-pause-btn");
+        ppvc1.pause();
+      }
+    }
+  };
+};
+
 // curently not warking ///////////////////////////******
 // short video volume mute/unmute
 const shortVolumeSeter = (val) => {
@@ -448,7 +505,7 @@ const gotoFollowingPage = () => {
   defaultPosterAndProfilePic();
   // store in session storage
   sessionStorage.setItem("changePage", "gotoFollowingPage()");
-  preLoader()
+  preLoader();
 };
 // refresh following page
 const refreshFollowingPage = () => {
@@ -553,7 +610,7 @@ const goToYourChannel = () => {
   defaultPosterAndProfilePic();
   // store in session storage
   sessionStorage.setItem("changePage", "goToYourChannel()");
-  preLoader()
+  preLoader();
 };
 // switch to home page
 // let switchToHomeButtons = document.querySelector(".switch-to-home");
@@ -592,7 +649,7 @@ const gotoHomePage = () => {
     });
   // store in session storage
   sessionStorage.setItem("changePage", "gotoHomePage()");
-  preLoader()
+  preLoader();
 };
 // video transfer engine //////////////
 const getSrcOfVideo = () => {
@@ -615,8 +672,8 @@ const getSrcOfVideo = () => {
       ).innerText = `${vTitle1.innerText}`;
       video.play();
       sessionStorage.setItem("videoPlayerTitle", `${vTitle1.innerText}`);
-      sessionStorage.setItem("videoPlayerVideoSrc",`${vSrc}`)
-      sessionStorage.setItem("videoPlayerVideoPoster",`${posterPath}`)
+      sessionStorage.setItem("videoPlayerVideoSrc", `${vSrc}`);
+      sessionStorage.setItem("videoPlayerVideoPoster", `${posterPath}`);
     }
   };
 };
@@ -672,7 +729,7 @@ const switchToLight = () => {
   // root.style.setProperty("--nav-logo-color", "#20dc55");
   darkOrLightIconI.setAttribute("class", "ri-moon-fill");
   darkOrLightIcon.setAttribute("onclick", "switchToDark()");
-  sessionStorage.setItem("m-bg",'#E4E4E4')
+  localStorage.setItem("m-bg", "#E4E4E4");
 };
 const switchToDark = () => {
   root.style.setProperty("--main-bg-color", "#0F0F0F");
@@ -681,7 +738,7 @@ const switchToDark = () => {
   // root.style.setProperty("--nav-logo-color", "#2020dc");
   darkOrLightIconI.setAttribute("class", "ri-sun-fill");
   darkOrLightIcon.setAttribute("onclick", "switchToLight()");
-  sessionStorage.setItem("m-bg",'#0F0F0F')
+  localStorage.setItem("m-bg", "#0F0F0F");
 };
 const changeUrl = (nextURL) => {
   const nextTitle = "My new page title";
