@@ -389,6 +389,7 @@
               muted
             ></video>
             <i class="ri-volume-mute-fill"></i>
+            <i class="ri-play-fill" id="sv-play-pause-btn"></i>
             <div class="short-video-info">
               <a href="#">
                 <div
@@ -537,9 +538,9 @@
 
     <script>
       document.addEventListener("DOMContentLoaded", function (event) {
-        if (sessionStorage.getItem("m-bg") == "#E4E4E4") {
+        if (localStorage.getItem("m-bg") == "#E4E4E4") {
           switchToLight();
-        } else if (sessionStorage.getItem("m-bg") == "#0F0F0F") {
+        } else if (localStorage.getItem("m-bg") == "#0F0F0F") {
           switchToDark();
         }
 
