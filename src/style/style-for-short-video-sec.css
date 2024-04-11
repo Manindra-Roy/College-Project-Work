@@ -35,7 +35,7 @@
   height: clamp(80svh, 85svh, 90svh);
   aspect-ratio: 9/16;
   border-radius: 10px;
-  background-color: var(--second-bg-color);
+  background-color: var(--main-bg-color);
   position: relative;
   margin-bottom: 20px;
   scroll-snap-align: start none;
@@ -57,7 +57,7 @@
   opacity: 0;
   transition: opacity, 0.25s;
 }
-.short-video-card:hover .volume-c{
+.short-video-card:hover .volume-c {
   opacity: 1;
   transition: opacity, 0.25s;
 }
@@ -72,7 +72,7 @@
   opacity: 0;
   transition: opacity, 0.25s;
   font-weight: 900;
-  background-color: #0f0f0f73;
+  background-color: #00000086;
   padding: 5px;
   border-radius: 50%;
   height: 7rem;
@@ -80,12 +80,44 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  animation-name: sv-play-pause-btn-animation;
+  animation-duration: 2.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: backwards;
 }
 .short-video-card:hover .sv-play-pause-btn {
   opacity: 1;
   transition: opacity, 0.25s;
 }
-
+/* animation */
+@keyframes sv-play-pause-btn-animation {
+  0% {
+    color: white;
+    border: 2px solid green;
+    box-shadow: 0px 0px 3px 3px green;
+  }
+  25% {
+    color: rgb(181, 180, 180);
+    border: 1.5px solid green;
+    box-shadow: 0px 0px 2px 2px green;
+  }
+  50% {
+    color: rgb(137, 137, 137);
+    border: 0px solid green;
+    box-shadow: 0px 0px 1px 1px green;
+  }
+  75% {
+    color: rgb(185, 185, 185);
+    border: 1.5px solid green;
+    box-shadow: 0px 0px 2px 2px green;
+  }
+  100% {
+    color: white;
+    border: 2px solid green;
+    box-shadow: 0px 0px 3px 3px green;
+  }
+}
 .short-video-info {
   position: absolute;
   width: 100%;
