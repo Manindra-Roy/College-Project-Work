@@ -571,6 +571,12 @@
           );
         } else if (changePage == "gotoShortVideoPlayer()") {
           gotoShortVideoPlayer();
+          setTimeout(() => {
+            document
+              .querySelector(".sv-play-pause-btn")
+              .setAttribute("class", "ri-play-fill sv-play-pause-btn");
+            document.querySelector(".sv-play-pause-btn").style.opacity = 1;
+          }, 500);
         } else if (changePage == "gotoFollowingPage()") {
           gotoFollowingPage();
         } else if (changePage == "goToYourChannel()") {

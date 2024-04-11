@@ -260,7 +260,7 @@ const gotoShortVideoPlayer = () => {
       preload="none"
       loop
     ></video>
-    <i class="ri-pause-fill sv-play-pause-btn" id="pp-id${
+    <i class="ri-play-fill sv-play-pause-btn" id="pp-id${
       i + 1
     }" onclick="svppBtnControl2()"></i>
     <i class="ri-volume-mute-fill volume-c" id="volmum-id${i + 1}"></i>
@@ -296,7 +296,7 @@ const gotoShortVideoPlayer = () => {
     for (const val of document.querySelectorAll(".short-video-card video")) {
       let options = {
         root: shortVideoSection,
-        rootMargin: "10px",
+        rootMargin: "25px",
         threshold: 1.0,
       };
       let observer = new IntersectionObserver((entries, observer) => {
@@ -315,6 +315,7 @@ const gotoShortVideoPlayer = () => {
               `#${ppBtn.id} .sv-play-pause-btn`
             );
             ppBtn1.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
+            ppBtn1.style.opacity = 0;
           } else {
             onScreenShortVideo.pause();
             onScreenShortVideo.currentTime = 0;
@@ -328,6 +329,7 @@ const gotoShortVideoPlayer = () => {
               `#${ppBtn.id} .sv-play-pause-btn`
             );
             ppBtn1.setAttribute("class", "ri-play-fill sv-play-pause-btn");
+            ppBtn1.style.opacity = 0;
           }
         });
       }, options);
@@ -351,9 +353,11 @@ const svppBtnControl1 = () => {
       if (ev1.target.paused) {
         ev1.target.play();
         ppBtn1.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
+        ppBtn1.style.opacity = 0;
       } else {
         ev1.target.pause();
         ppBtn1.setAttribute("class", "ri-play-fill sv-play-pause-btn");
+        ppBtn1.style.opacity = 1;
       }
     }
   };
@@ -370,11 +374,13 @@ const svppBtnControl2 = () => {
       let ppvc = document.querySelector(`.short-video-card:has(#${idOfSvBtn})`);
       let ppvc1 = document.querySelector(`#${ppvc.id} .short-video-player`);
       if (ppvc1.paused) {
-        ev2.target.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
         ppvc1.play();
+        ev2.target.setAttribute("class", "ri-pause-fill sv-play-pause-btn");
+        ev2.target.style.opacity = 0;
       } else {
-        ev2.target.setAttribute("class", "ri-play-fill sv-play-pause-btn");
         ppvc1.pause();
+        ev2.target.setAttribute("class", "ri-play-fill sv-play-pause-btn");
+        ev2.target.style.opacity = 1;
       }
     }
   };
