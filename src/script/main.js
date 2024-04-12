@@ -49,7 +49,7 @@ const topContents = [
   "News",
   "Sports",
 ];
-let videoTitles = "This is the title of this video. ";
+let videoTitles = "This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video.  ";
 let channelNames = "Channel Name";
 // sample database ///////////////////////////////////////////
 // data fetch for Categories
@@ -716,6 +716,10 @@ const closSideBar = () => {
     }, 125);
   });
   menuIcon.setAttribute("onclick", "openSideBar()");
+  if(window.screen.width<=1600){
+  document.querySelector(".following-channel-contents").setAttribute("style","grid-template-columns:repeat(3, 1fr)")
+  document.querySelector(".following-channel-bannar-profile").setAttribute("style","grid-area:1/1/3/4")
+}
 };
 const openSideBar = () => {
   sideBarUl.forEach((ul) => {
@@ -724,6 +728,10 @@ const openSideBar = () => {
   root.style.setProperty("--side-bar-w", "240px");
   sideBar.setAttribute("style", "opacity: 1;");
   menuIcon.setAttribute("onclick", "closSideBar()");
+  if(window.screen.width<=1600){
+  document.querySelector(".following-channel-contents").setAttribute("style","grid-template-columns:repeat(2, 1fr)")
+  document.querySelector(".following-channel-bannar-profile").setAttribute("style","grid-area:1/1/3/3")
+  }
 };
 // dark or light function //
 let darkOrLightIcon = document.querySelector(".dark-or-light");

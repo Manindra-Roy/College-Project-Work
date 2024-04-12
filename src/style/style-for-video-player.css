@@ -25,10 +25,12 @@
   display: none;
   grid-template-columns: 2fr 1fr;
   padding: 10px 0;
+  padding-left: 15px;
 }
 /* /////////// */
 .left-pac {
   overflow-y: scroll;
+  padding-right: 10px;
 }
 /* /////////// */
 /* VIDEO PLAYER STYLE START */

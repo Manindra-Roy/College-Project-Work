@@ -5,6 +5,9 @@
   .right-playing-video-info .video-download-btn {
     display: none;
   }
+  .following-page {
+    grid-template-columns: 275px 4fr;
+  }
   .following-page .following-channel-contents {
     grid-template-columns: repeat(3, 1fr);
   }
