@@ -36,7 +36,7 @@ body {
   font-size: 2rem;
   row-gap: 7.5px;
   z-index: 100;
-  transition: opacity, .25s;
+  transition: opacity, 0.25s;
 }
 .l-dot {
   width: 110px;
@@ -46,7 +46,47 @@ body {
   position: relative;
   transform-origin: center;
   overflow: hidden;
-  box-shadow: 0 0 2.5px 2.5px var(--second-font-color);
+  animation-name: boxshadow-animation;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+  animation-iteration-count: infinite;
+}
+/* animation */
+@keyframes boxshadow-animation {
+  0% {
+    box-shadow: 0 0 3px 3px var(--second-font-color);
+  }
+  10% {
+    box-shadow: 0 0 2.5px 2.5px var(--second-font-color);
+  }
+  20% {
+    box-shadow: 0 0 2px 2px var(--second-font-color);
+  }
+  30% {
+    box-shadow: 0 0 1.5px 1.5px var(--second-font-color);
+  }
+  40% {
+    box-shadow: 0 0 1px 1px var(--second-font-color);
+  }
+  50% {
+    box-shadow: 0 0 0.5px 0.5px var(--second-font-color);
+  }
+  60% {
+    box-shadow: 0 0 1px 1px var(--second-font-color);
+  }
+  70% {
+    box-shadow: 0 0 1.5px 1.5px var(--second-font-color);
+  }
+  80% {
+    box-shadow: 0 0 2px 2px var(--second-font-color);
+  }
+  90% {
+    box-shadow: 0 0 2.5px 2.5px var(--second-font-color);
+  }
+  100% {
+    box-shadow: 0 0 3px 3px var(--second-font-color);
+  }
 }
 .l-dot::before {
   content: "";
@@ -55,12 +95,16 @@ body {
   height: 40px;
   background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
   background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
   left: 50%;
   top: 50%;
-  border-radius: 100px 75px 100px 10px;
+  border-radius: 100px 75px 100px 50px;
   transform: translate(-50%, -50%);
   transform-origin: center;
+  animation-name: floting-animation;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+  animation-iteration-count: infinite;
 }
 .l-dot::after {
   overflow: hidden;
@@ -86,18 +130,68 @@ body {
     #00ffa2
   );
   background-size: 400% 400%;
-  animation: gradient 10s ease infinite;
   background-clip: text;
   color: transparent;
+  animation-name: floting-animation;
+  animation-duration: 5s;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+  animation-iteration-count: infinite;
 }
-@keyframes gradient {
+/* animation */
+@keyframes floting-animation {
   0% {
+    top: 45%;
     background-position: 0% 50%;
+  }
+  25% {
+    top: 50%;
+    background-position: 50% 50%;
   }
   50% {
+    top: 55%;
     background-position: 100% 50%;
   }
+  75% {
+    top: 50%;
+    background-position: 50% 50%;
+  }
   100% {
+    top: 45%;
     background-position: 0% 50%;
+  }
+}
+/* pre-loading */
+.pre-loading {
+  font-size: 2.25rem;
+  position: relative;
+}
+.pre-loading::after {
+  content: "Loading...";
+  position: absolute;
+  top: 0;
+  left: -3.75ch;
+  animation-name: loading-animation-01;
+  animation-duration: 2s;
+  animation-timing-function: linear;
+  animation-fill-mode: backwards;
+  animation-iteration-count: infinite;
+}
+@keyframes loading-animation-01 {
+  0%,
+  25% {
+    content: "Loading";
+  }
+  25%,
+  50% {
+    content: "Loading.";
+  }
+  50%,
+  75% {
+    content: "Loading..";
+  }
+  75%,
+  100% {
+    content: "Loading...";
   }
 }
