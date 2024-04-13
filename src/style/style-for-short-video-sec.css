@@ -45,7 +45,35 @@
   width: 100%;
   height: 100%;
   border-radius: inherit;
+  background-color: #414141;
+  background-image: linear-gradient(45deg, #414141 0%, #1b1b1b 100%);
+  animation-name: sv-ani-for-load-v;
+  animation-duration: 2.5s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  background-size: 1000% 1000%;
+  animation-fill-mode: backwards;
 }
+@keyframes sv-ani-for-load-v {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 50% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  75% {
+    background-position: 50% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* .short-video-player[poster]{
+  object-fit:cover;
+} */
 /* short video volume mute/unmute button */
 .short-video-card .volume-c {
   position: absolute;
