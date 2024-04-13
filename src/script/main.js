@@ -49,7 +49,8 @@ const topContents = [
   "News",
   "Sports",
 ];
-let videoTitles = "This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video.  ";
+let videoTitles =
+  "This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video.  ";
 let channelNames = "Channel Name";
 // sample database ///////////////////////////////////////////
 // data fetch for Categories
@@ -124,6 +125,7 @@ let shortVideo = document.querySelector(".short-video-card video");
 let shortVideoS = document.querySelectorAll(".short-video-card video");
 let followingPage = document.querySelector(".following-page");
 let yourChannelPage = document.querySelector(".your-channel-page");
+let watchHistoryPage = document.querySelector(".watch-history-page");
 
 // switch to video player page
 const gotoVideoPlayer = () => {
@@ -207,6 +209,12 @@ const gotoVideoPlayer = () => {
       .forEach((val) => {
         val.remove();
       });
+    document.querySelectorAll(".watched-date").forEach((hwvlc) => {
+      hwvlc.remove();
+    });
+    document.querySelectorAll(".watched-videos").forEach((hwvlc) => {
+      hwvlc.remove();
+    });
   }, 1);
   // store in session storage
   sessionStorage.setItem("changePage", "gotoVideoPlayer()");
@@ -243,6 +251,12 @@ const gotoShortVideoPlayer = () => {
     .forEach((val) => {
       val.remove();
     });
+  document.querySelectorAll(".watched-date").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
+  document.querySelectorAll(".watched-videos").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
   setTimeout(() => {
     document.querySelectorAll(".short-video-card").forEach((svCards) => {
       svCards.remove();
@@ -424,6 +438,12 @@ const gotoFollowingPage = () => {
     .forEach((lvCard) => {
       lvCard.remove();
     });
+  document.querySelectorAll(".watched-date").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
+  document.querySelectorAll(".watched-videos").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
   document
     .querySelectorAll(".following-channel-contents .l-cards")
     .forEach((lvCard) => {
@@ -555,6 +575,12 @@ const goToYourChannel = () => {
     .forEach((val) => {
       val.remove();
     });
+  document.querySelectorAll(".watched-date").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
+  document.querySelectorAll(".watched-videos").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
   // set default thambnail on empty thambnail videos
   document.querySelectorAll(".your-channel-profile-pic").forEach((val) => {
     let bGOfProfile = val.style.getPropertyValue("background");
@@ -618,6 +644,120 @@ const goToYourChannel = () => {
   sessionStorage.setItem("changePage", "goToYourChannel()");
   preLoader();
 };
+
+// switch to your channel page
+const goToWatchHistory = () => {
+  document.querySelector(".page-loading-animation").style.opacity = "1";
+  document.querySelector(".page-loading-animation").style.display = "flex";
+  contentCategories.setAttribute("style", "display:none;");
+  homePageContents.setAttribute("style", "display:none;");
+  videoPlayerPage.setAttribute("style", "display:none");
+  shortVideoSection.setAttribute("style", "display:none");
+  followingPage.setAttribute("style", "display:none");
+  yourChannelPage.setAttribute("style", "display:none");
+  watchHistoryPage.style.display = "block";
+
+  closSideBar();
+  video.pause();
+  video.setAttribute("src", "");
+  document.querySelectorAll(".short-video-card").forEach((svCards) => {
+    svCards.remove();
+  });
+  document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
+    lvCard.remove();
+  });
+  document
+    .querySelectorAll(".following-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
+  document
+    .querySelectorAll(".your-channel-contents .l-cards")
+    .forEach((lvCard) => {
+      lvCard.remove();
+    });
+  document
+    .querySelectorAll(".following-channels .following-channel-profile-card")
+    .forEach((val) => {
+      val.remove();
+    });
+
+  // set default thambnail on empty thambnail videos
+  // document.querySelectorAll(".your-channel-profile-pic").forEach((val) => {
+  //   let bGOfProfile = val.style.getPropertyValue("background");
+  //   if (bGOfProfile.trim().length == 25) {
+  //     val.style.setProperty("background", "url(./public/images/d.jpg)");
+  //     val.style.setProperty("background-size", "cover");
+  //   }
+  // });
+
+  // inserting watched history frem
+  const historyDates = ["Today", "Yesterday"];
+  let h = 0;
+  while (h < 2) {
+    document.querySelector(".videos-and-watch-dates").innerHTML += `
+<div class="watched-date">${historyDates[h]}</div>
+<div class="watched-videos" id="wv${h + 1}">
+</div>`;
+
+    // rendaring video cards
+    for (i = 0; i < videos.length; i++) {
+      document.querySelector(`#wv${h + 1}`).innerHTML += `
+  <div class="l-cards" id="ycplc${i + 1}">
+  <div class="video-area">
+    <a href="#" >
+    <video
+    id="yplc${i + 1}"
+    class="vid"
+    onclick="getSrcOfVideo(),gotoVideoPlayer()"
+    poster=${posters[i]}
+    src=${videos[i]}
+    onmouseover="setTimeout(() => {
+      this.play();
+   }, 250);"
+   onmouseout="setTimeout(() => {
+     this.pause();
+     this.currentTime=0;
+     this.load();
+   }, 250);"
+        muted
+        loop
+        preload="none"
+      ></video>
+    </a>
+  </div>
+  <div class="video-meta">
+    <a href="#" class="profile">
+      <div
+        class="profile-pic"
+        style="
+          background: url(${posters[i]});background-size: cover;
+        "
+      ></div>
+    </a>
+    <div class="text-info">
+      <a href="#" class="title">
+      ${videoTitles}
+      </a>
+      <div class="views-and-dates">
+        <a href="#" class="channel-name"
+          >${channelNames}</a
+        >
+        &nbsp;&nbsp;&nbsp;100K Views&nbsp;&nbsp;30 Days Ago
+      </div>
+    </div>
+  </div>
+  </div>`;
+    }
+    h++;
+  }
+  // set default thambnail on empty thambnail videos and set default profile pic on empty profiles
+  defaultPosterAndProfilePic();
+  // store in session storage
+  sessionStorage.setItem("changePage", "goToWatchHistory()");
+  preLoader();
+};
+
 // switch to home page
 // let switchToHomeButtons = document.querySelector(".switch-to-home");
 const gotoHomePage = () => {
@@ -653,6 +793,12 @@ const gotoHomePage = () => {
     .forEach((val) => {
       val.remove();
     });
+  document.querySelectorAll(".watched-date").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
+  document.querySelectorAll(".watched-videos").forEach((hwvlc) => {
+    hwvlc.remove();
+  });
   // store in session storage
   sessionStorage.setItem("changePage", "gotoHomePage()");
   preLoader();
@@ -716,10 +862,14 @@ const closSideBar = () => {
     }, 125);
   });
   menuIcon.setAttribute("onclick", "openSideBar()");
-  if(window.screen.width<=1600){
-  document.querySelector(".following-channel-contents").setAttribute("style","grid-template-columns:repeat(3, 1fr)")
-  document.querySelector(".following-channel-bannar-profile").setAttribute("style","grid-area:1/1/3/4")
-}
+  if (window.screen.width <= 1600) {
+    document
+      .querySelector(".following-channel-contents")
+      .setAttribute("style", "grid-template-columns:repeat(3, 1fr)");
+    document
+      .querySelector(".following-channel-bannar-profile")
+      .setAttribute("style", "grid-area:1/1/3/4");
+  }
 };
 const openSideBar = () => {
   sideBarUl.forEach((ul) => {
@@ -728,9 +878,13 @@ const openSideBar = () => {
   root.style.setProperty("--side-bar-w", "240px");
   sideBar.setAttribute("style", "opacity: 1;");
   menuIcon.setAttribute("onclick", "closSideBar()");
-  if(window.screen.width<=1600){
-  document.querySelector(".following-channel-contents").setAttribute("style","grid-template-columns:repeat(2, 1fr)")
-  document.querySelector(".following-channel-bannar-profile").setAttribute("style","grid-area:1/1/3/3")
+  if (window.screen.width <= 1600) {
+    document
+      .querySelector(".following-channel-contents")
+      .setAttribute("style", "grid-template-columns:repeat(2, 1fr)");
+    document
+      .querySelector(".following-channel-bannar-profile")
+      .setAttribute("style", "grid-area:1/1/3/3");
   }
 };
 // dark or light function //

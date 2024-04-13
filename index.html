@@ -26,6 +26,7 @@
     <link rel="stylesheet" href="./src/style/style-for-short-video-sec.css" />
     <link rel="stylesheet" href="./src/style/Style-for-following-page.css" />
     <link rel="stylesheet" href="./src/style/style-for-your-channel-page.css" />
+    <link rel="stylesheet" href="./src/style/style-for-history-page.css" />
     <link rel="stylesheet" href="./src/style/style-1600-1800.css" />
     <link rel="stylesheet" href="./src/style/style-1280-1600.css" />
     <link rel="stylesheet" href="./src/style/style-custom-scrollbar.css" />
@@ -66,7 +67,9 @@
           <span class="dark-or-light" onclick="switchToLight()"
             ><i class="ri-sun-fill"></i
           ></span>
-          <a href="src/markups/sign-in.html" class="nav-sign-in" target="_blank">Sign In</a>
+          <a href="src/markups/sign-in.html" class="nav-sign-in" target="_blank"
+            >Sign In</a
+          >
         </div>
       </nav>
     </header>
@@ -100,7 +103,7 @@
             >
           </li>
           <li>
-            <a href="src/markups/sign-in.html" class="history" target="_blank"
+            <a href="#" class="history" onclick="goToWatchHistory()"
               ><i class="ri-history-line"></i>&nbsp;&nbsp;&nbsp;History</a
             >
           </li>
@@ -529,6 +532,19 @@
             </div>
           </div>
         </div>
+        <!-- Watch history page -->
+        <div class="watch-history-page">
+          <h2>
+            Watch History &nbsp;<span
+              ><i class="ri-delete-bin-line"></i>&nbsp;Clear all watch
+              history</span
+            >
+          </h2>
+          <div class="videos-and-watch-dates">
+            <!-- <div class="watched-date">Today</div>
+            <div class="watched-videos"></div> -->
+          </div>
+        </div>
       </div>
     </main>
 
@@ -581,6 +597,8 @@
           gotoFollowingPage();
         } else if (changePage == "goToYourChannel()") {
           goToYourChannel();
+        } else if (changePage == "goToWatchHistory()") {
+          goToWatchHistory();
         }
       });
     </script>
