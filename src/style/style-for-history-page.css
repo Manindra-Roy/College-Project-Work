@@ -35,8 +35,7 @@
     background-color: var(--main-bg-color);
     color: var(--font-color);
     padding: 10px 15px;
-    /* background-color: rebeccapurple; */
-
+    display: none;
   }
   .watch-history-page>h2{
     font-size: 3rem;
@@ -52,7 +51,6 @@
     cursor: pointer;
     color: var(--second-font-color);
     font-weight: 550;
-
   }
   .watch-history-page>h2>span>i{
     font-size: 1.5rem;
@@ -62,7 +60,6 @@
     height: 100%;
     padding: 10px 15px;
     overflow-y: scroll;
-    /* background-color: rgb(92, 95, 95); */
   }
   .videos-and-watch-dates>.watched-date{
     font-size: 2rem;

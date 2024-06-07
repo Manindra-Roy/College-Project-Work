@@ -50,7 +50,7 @@ const topContents = [
   "Sports",
 ];
 let videoTitles =
-  "This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video. This is the title of this video.  ";
+  "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Doloremque commodi minus omnis? Cupiditate saepe iusto eum quam quis optio quas quos aspernatur, quibusdam eligendi dolorem. Porro odit vero officiis, quam facilis quidem velit illum sit tenetur provident possimus voluptatum quaerat aliquam soluta saepe fugit tempore illo enim quasi temporibus voluptatem!";
 let channelNames = "Channel Name";
 // sample database ///////////////////////////////////////////
 // data fetch for Categories
@@ -136,6 +136,7 @@ const gotoVideoPlayer = () => {
   shortVideoSection.setAttribute("style", "display:none");
   followingPage.style.display = "none";
   yourChannelPage.style.display = "none";
+  watchHistoryPage.style.display="none";
   videoPlayerPage.setAttribute("style", "display:grid");
   closSideBar();
   document.querySelectorAll(".suggested-videos .l-cards").forEach((lvCard) => {
@@ -229,6 +230,7 @@ const gotoShortVideoPlayer = () => {
   videoPlayerPage.setAttribute("style", "display:none");
   followingPage.style.display = "none";
   yourChannelPage.style.display = "none";
+  watchHistoryPage.style.display="none";
   shortVideoSection.setAttribute("style", "display:grid");
   closSideBar();
   video.pause();
@@ -423,6 +425,7 @@ const gotoFollowingPage = () => {
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   yourChannelPage.style.display = "none";
+  watchHistoryPage.style.display="none";
   followingPage.setAttribute("style", "display:grid");
   closSideBar();
   video.pause();
@@ -550,6 +553,7 @@ const goToYourChannel = () => {
   videoPlayerPage.setAttribute("style", "display:none");
   shortVideoSection.setAttribute("style", "display:none");
   followingPage.setAttribute("style", "display:none");
+  watchHistoryPage.style.display="none";
   yourChannelPage.setAttribute("style", "display:block");
   closSideBar();
   video.pause();
@@ -862,7 +866,7 @@ const closSideBar = () => {
     }, 125);
   });
   menuIcon.setAttribute("onclick", "openSideBar()");
-  if (window.screen.width <= 1600) {
+  if (window.screen.width <= 1600 && window.screen.width > 1279) {
     document
       .querySelector(".following-channel-contents")
       .setAttribute("style", "grid-template-columns:repeat(3, 1fr)");
@@ -878,7 +882,7 @@ const openSideBar = () => {
   root.style.setProperty("--side-bar-w", "240px");
   sideBar.setAttribute("style", "opacity: 1;");
   menuIcon.setAttribute("onclick", "closSideBar()");
-  if (window.screen.width <= 1600) {
+  if (window.screen.width <= 1600 && window.screen.width > 1279) {
     document
       .querySelector(".following-channel-contents")
       .setAttribute("style", "grid-template-columns:repeat(2, 1fr)");
