@@ -35,7 +35,7 @@ body {
   flex-direction: column;
   font-size: 2rem;
   row-gap: 7.5px;
-  z-index: 100;
+  z-index: 1000;
   transition: opacity, 0.25s;
 }
 .l-dot {
