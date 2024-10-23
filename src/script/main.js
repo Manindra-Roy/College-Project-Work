@@ -18,12 +18,6 @@ const videos = [
   "./public/videos/wv4.webm",
   "./public/videos/wv5.webm",
   "./public/videos/wv6.webm",
-  "./public/videos/wv1.webm",
-  "./public/videos/wv2.webm",
-  "./public/videos/wv3.webm",
-  "./public/videos/wv4.webm",
-  "./public/videos/wv5.webm",
-  "./public/videos/wv6.webm",
 ];
 const posters = [
   "null",
@@ -38,12 +32,6 @@ const posters = [
   "null",
   "./public/images/naruto1.jpg",
   "./public/images/lufy1.jpg",
-  "./public/images/th1.jpg",
-  "./public/images/th2.png",
-  "./public/images/th3.jpg",
-  "./public/images/th4.jpg",
-  "./public/images/th5.jpg",
-  "./public/images/th6.jpg",
   "./public/images/th1.jpg",
   "./public/images/th2.png",
   "./public/images/th3.jpg",
@@ -75,7 +63,7 @@ for (i = 0; i < topContents.length; i++) {
 
 // card content data fetch for hime page
 let j = 0;
-while (j < 1) {
+while (j < 2) {
   for (i = 0; i < videos.length; i++) {
     document.querySelector(".contents").innerHTML += `
   <div class="l-cards" id="homelc${i + 1}"> 
